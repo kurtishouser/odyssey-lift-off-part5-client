@@ -13,22 +13,24 @@ const ModulesNav = ({ module, track }) => {
     <ModulesNavContainer>
       <ModuleTitle>
         <h4>
-          <Link to="../..">{track.title}</Link>
+          <Link to='../..'>{track.title}</Link>
         </h4>
       </ModuleTitle>
       <ModulesList>
-        {track.modules.map((navModule) => (
+        {track.modules.map(navModule => (
           <ModuleListItem key={`module_${navModule.id}`}>
             <div>
               <ModuleNavStyledLink to={`../${navModule.id}`}>
                 <ModuleListItemContent isActive={navModule.id === module.id}>
                   {navModule.id === module.id ? (
-                    <IconDoubleArrowRight width="14px" />
+                    <IconDoubleArrowRight width='14px' />
                   ) : (
-                    <IconArrowRight width="14px" weight="thin" />
+                    <IconArrowRight width='14px' weight='thin' />
                   )}
                   <div>{navModule.title}</div>
-                  <div>{humanReadableTimeFromSeconds(navModule.length)}</div>
+                  <div>
+                    {humanReadableTimeFromSeconds(navModule.durationInSeconds)}
+                  </div>
                 </ModuleListItemContent>
               </ModuleNavStyledLink>
             </div>
@@ -83,7 +85,7 @@ const ModulesList = styled.ul({
   height: `calc(100% - ${trackTitleHeight}px)`,
 });
 
-const ModuleListItem = styled.li((props) => ({
+const ModuleListItem = styled.li(props => ({
   borderBottom: `solid 1px ${colors.grey.darker}`,
   ':last-child': {
     borderBottom: 'none',
@@ -96,7 +98,7 @@ const ModuleNavStyledLink = styled(Link)({
   alignItems: 'center',
 });
 
-const ModuleListItemContent = styled.div((props) => ({
+const ModuleListItemContent = styled.div(props => ({
   backgroundColor: props.isActive ? colors.black.base : colors.black.light,
   color: props.isActive ? colors.silver.lighter : colors.silver.darker,
   minHeight: 80,
